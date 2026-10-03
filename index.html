@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>STRIVE-D: Driving Video Retrieval for Complex Queries with Structured Grounding</title>
+  <meta name="description" content="STRIVE-D: a data-calibrated retrieval framework for driving videos. NeurIPS 2026.">
+  <meta property="og:title" content="STRIVE-D (NeurIPS 2026)">
+  <meta property="og:description" content="Driving Video Retrieval for Complex Queries with Structured Grounding">
+  <meta property="og:image" content="static/images/teaser.png">
+  <link rel="icon" type="image/svg+xml" href="static/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Noto+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/style.css?v=1790902893">
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a class="nav-brand" href="#top">STRIVE-D</a>
+      <div class="nav-links">
+        <a href="#abstract">Abstract</a>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <a href="#bibtex">BibTeX</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <h1>
+      <span class="name">STRIVE-D</span>
+      Driving Video Retrieval for Complex Queries with Structured Grounding
+    </h1>
+
+    <p class="authors">
+      <span><a href="https://gyeow.github.io/">Manyi Yao</a><sup>1</sup></span>
+      <span><a href="https://www.linkedin.com/in/garg-sparsh/">Sparsh Garg</a><sup>2</sup></span>
+      <span><a href="https://www.cs.ucr.edu/~cshelton/">Christian R. Shelton</a><sup>1</sup></span>
+      <span><a href="https://vcg.engr.ucr.edu/amit">Amit K. Roy-Chowdhury</a><sup>1</sup></span>
+      <span><a href="https://abhishekaich27.github.io/">Abhishek Aich</a><sup>2</sup></span>
+    </p>
+    <p class="affils"><span><sup>1</sup>University of California, Riverside</span><span><sup>2</sup>NEC Laboratories America</span></p>
+    <p class="venue"><a href="https://neurips.cc/Conferences/2026" target="_blank" rel="noopener">NeurIPS 2026</a></p>
+
+    <div class="actions">
+      <a class="btn btn-primary" href="https://arxiv.org/pdf/2606.09109"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h8"/></svg>Paper</a>
+      <a class="btn btn-primary" href="https://arxiv.org/abs/2606.09109"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>arXiv</a>
+      <!-- <a class="btn btn-primary" href="https://github.com/GYeow/STRIVE-D">Code</a> -->
+      <!-- <a class="btn btn-primary" href="#">Data</a> -->
+      <a class="btn btn-primary" href="#bibtex"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4H6a2 2 0 0 0-2 2v4a2 2 0 0 1-2 2 2 2 0 0 1 2 2v4a2 2 0 0 0 2 2h2M16 4h2a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2 2 2 0 0 0-2 2v4a2 2 0 0 1-2 2h-2"/></svg>BibTeX</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="section teaser">
+      <figure class="figure">
+        <img class="diagram" src="static/images/teaser.png" alt="Embedding-based retrieval vs. structured grounding">
+        <figcaption>Embedding-based retrieval captures global scene similarity but often ignores short-term motion dynamics, such as lane changing and hard braking. Our structured grounding method explicitly models these motion patterns, enabling accurate retrieval of such events.</figcaption>
+      </figure>
+    </section>
+
+    <section class="section narrow" id="abstract">
+      <h2>Abstract</h2>
+      <p class="lead">Video retrieval at scale is central to data curation and safety validation in autonomous driving, where users want to find not only scenes but also dynamic events such as cut-ins and hard braking. Existing vision-language and keyword-based retrieval methods often miss these events because the relevant motion may not be explicitly described in text or captured by lexical overlap. Rule-based retrieval can encode such events more directly, but it is brittle: generated or hand-written rules often fail when their assumptions do not match real driving data. We propose STRIVE-D, a data-calibrated retrieval framework for driving videos. It uses weakly labeled in-domain videos to estimate when a query rule is reliable, adapt rules that mismatch observed data, and fuse calibrated rule scores with vision-language and keyword-based retrieval signals. Across three driving benchmarks, including newly released human-annotated event data on DrivingDojo, STRIVE-D delivers up to 84% relative improvement in top-1 accuracy over state-of-the-art methods.</p>
+
+      <h3>Contributions</h3>
+      <ul class="dots">
+        <li>We characterize three failure modes of driving video retrieval: <em>dilution</em>, <em>miscalibration</em>, and <em>coverage gaps</em>.</li>
+        <li>Numerical-constraint calibration via learning-to-rank under distant supervision.</li>
+        <li>A confidence-aware adaptation policy for out-of-library queries.</li>
+        <li>Evaluation on DrivingDojo, CarCrashDataset, and MM-AU, with a release of human-annotated event queries on DrivingDojo.</li>
+      </ul>
+    </section>
+
+    <section class="section" id="method">
+      <h2>Method</h2>
+      <figure class="figure">
+        <img class="diagram" src="static/images/method.png" alt="STRIVE-D overview">
+        <figcaption>We identify three failure modes of existing query-to-video retrieval in driving (<em>top-left</em>): F1 <em>Dilution</em> of kinematic patterns by dense embeddings, F2 <em>Miscalibration</em> of LLM-generated rules against empirical signal distributions, and F3 limited <em>Coverage</em> of any fixed rule library for open-vocabulary queries. Three components address them in turn: the <em>Symbolic Path</em> (<em>top-middle</em>, F1) scores videos by matching a per-frame structured representation (entities, attributes, distance, lane) against a symbolic rule composed of entity selectors, hard gates, and soft scores; the <em>Calibrated Library</em> (<em>bottom-left</em>, F2) mines diverse events from in-domain videos and calibrates rule thresholds via learning-to-rank, yielding a library of empirically grounded rules; <em>Adaptation</em> (<em>bottom-middle</em>, F3) handles unseen queries at test time by generating new rules from the calibrated library. <em>Multi-source Retrieval</em> (<em>right</em>) combines the symbolic path with keyword matching and embedding scoring through rank fusion to produce the final top-<em>K</em> ranking.</figcaption>
+      </figure>
+    </section>
+
+    <section class="section" id="results">
+      <h2>Results</h2>
+
+      <h3>Benchmark comparison</h3>
+      <div class="tabs"><button type="button" class="tab on" data-ds="0">DrivingDojo</button><button type="button" class="tab" data-ds="1">MM-AU</button><button type="button" class="tab" data-ds="2">CarCrashDataset</button></div>
+      <div class="table-wrap" data-ds="0">
+        <table>
+          <thead><tr><th>Type</th><th>Method</th><th>MRR</th><th>mAP</th><th>Acc@1</th><th>Acc@3</th><th>Acc@5</th><th>Acc@10</th></tr></thead>
+          <tbody>
+          <tr><td class="type">Embedding</td><td class="m">Qwen3-VL-2B</td><td>12.2</td><td>1.4</td><td>4.9</td><td>26.8</td><td>46.3</td><td>65.9</td></tr>
+          <tr><td class="type">Embedding</td><td class="m">Qwen3-VL-8B</td><td>20.1</td><td>2.2</td><td>14.6</td><td>31.7</td><td class="second">51.2</td><td class="second">68.3</td></tr>
+          <tr><td class="type">Embedding</td><td class="m">SigLIP</td><td>23.7</td><td>4.7</td><td>14.6</td><td>22.0</td><td>31.7</td><td>58.5</td></tr>
+          <tr><td class="type">Embedding</td><td class="m">SigLIP2</td><td>25.0</td><td>1.9</td><td>14.6</td><td>31.7</td><td>34.2</td><td>48.8</td></tr>
+          <tr><td class="type">RAG</td><td class="m">VideoRAG</td><td>21.6</td><td>3.5</td><td>12.2</td><td>29.3</td><td>29.3</td><td>39.0</td></tr>
+          <tr><td class="type">Neuro-symbolic</td><td class="m">NSVS-TL</td><td class="second">31.8</td><td class="second">4.9</td><td class="second">22.0</td><td class="second">34.2</td><td>43.9</td><td>53.7</td></tr>
+          <tr class="ours"><td class="type">Neuro-symbolic</td><td class="m">STRIVE-D (Ours)</td><td class="best">38.7</td><td class="best">8.6</td><td class="best">26.8</td><td class="best">48.8</td><td class="best">53.7</td><td class="best">73.2</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-wrap" data-ds="1" hidden>
+        <table>
+          <thead><tr><th>Type</th><th>Method</th><th>MRR</th><th>mAP</th><th>Acc@1</th><th>Acc@3</th><th>Acc@5</th><th>Acc@10</th></tr></thead>
+          <tbody>
+          <tr><td class="type">Embedding</td><td class="m">Qwen3-VL-2B</td><td>26.9</td><td>6.0</td><td>18.4</td><td>30.6</td><td>42.9</td><td>49.0</td></tr>
+          <tr><td class="type">Embedding</td><td class="m">Qwen3-VL-8B</td><td class="second">32.7</td><td class="second">6.3</td><td class="second">20.4</td><td class="second">38.8</td><td class="second">55.1</td><td class="second">61.2</td></tr>
+          <tr><td class="type">Embedding</td><td class="m">SigLIP</td><td>16.1</td><td>4.3</td><td>6.1</td><td>24.5</td><td>30.6</td><td>38.8</td></tr>
+          <tr><td class="type">Embedding</td><td class="m">SigLIP2</td><td>17.8</td><td>6.1</td><td>8.2</td><td>22.5</td><td>26.5</td><td>40.8</td></tr>
+          <tr><td class="type">RAG</td><td class="m">VideoRAG</td><td>22.9</td><td>6.0</td><td>18.4</td><td>24.5</td><td>24.5</td><td>36.7</td></tr>
+          <tr><td class="type">Neuro-symbolic</td><td class="m">NSVS-TL</td><td>18.0</td><td>2.8</td><td>6.1</td><td>20.4</td><td>36.7</td><td>53.1</td></tr>
+          <tr class="ours"><td class="type">Neuro-symbolic</td><td class="m">STRIVE-D (Ours)</td><td class="best">40.5</td><td class="best">9.5</td><td class="best">26.5</td><td class="best">53.1</td><td class="best">59.2</td><td class="best">65.3</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-wrap" data-ds="2" hidden>
+        <table>
+          <thead><tr><th>Type</th><th>Method</th><th>MRR</th><th>mAP</th><th>Acc@1</th><th>Acc@3</th><th>Acc@5</th><th>Acc@10</th></tr></thead>
+          <tbody>
+          <tr><td class="type">Embedding</td><td class="m">Qwen3-VL-2B</td><td>38.3</td><td>32.1</td><td class="second">26.7</td><td>44.4</td><td>55.6</td><td>64.4</td></tr>
+          <tr><td class="type">Embedding</td><td class="m">Qwen3-VL-8B</td><td class="second">40.1</td><td class="second">33.5</td><td class="best">28.9</td><td class="second">46.7</td><td class="second">62.2</td><td class="second">66.7</td></tr>
+          <tr><td class="type">Embedding</td><td class="m">SigLIP</td><td>30.0</td><td>22.0</td><td>17.8</td><td>35.6</td><td>51.1</td><td>60.0</td></tr>
+          <tr><td class="type">Embedding</td><td class="m">SigLIP2</td><td>28.9</td><td>23.4</td><td>15.6</td><td>33.3</td><td>51.1</td><td>62.2</td></tr>
+          <tr><td class="type">RAG</td><td class="m">VideoRAG</td><td>32.1</td><td>25.6</td><td>20.0</td><td>40.0</td><td>46.7</td><td>55.6</td></tr>
+          <tr><td class="type">Neuro-symbolic</td><td class="m">NSVS-TL</td><td>23.1</td><td>19.3</td><td>11.1</td><td>24.4</td><td>37.8</td><td>53.3</td></tr>
+          <tr class="ours"><td class="type">Neuro-symbolic</td><td class="m">STRIVE-D (Ours)</td><td class="best">45.0</td><td class="best">37.7</td><td class="best">28.9</td><td class="best">60.0</td><td class="best">73.3</td><td class="best">75.6</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Retrieval performance (%) on three driving benchmarks, all methods evaluated with a reranking pool size of 20. <strong>Bold</strong>: best; <u>underline</u>: second-best.</p>
+
+      <h3>Plug-in generalizability</h3>
+      <figure class="figure">
+        <img class="diagram" src="static/images/plugin.png" alt="Accuracy gains when adding STRIVE-D to four retrievers">
+        <figcaption>Adding our symbolic-rule pathway to four off-the-shelf retrievers on DrivingDojo improves the full Acc@K curve for every backbone. Numbers on the right are absolute gains in top-10 accuracy.</figcaption>
+      </figure>
+
+      <h3>Qualitative examples</h3>
+      <figure class="figure">
+        <div class="qual">
+          <div></div><div class="q">bus cut-in</div><div class="q">car collision with city guardrails</div>
+          <div class="lbl ours">Ours</div><img src="static/images/qual/bus_ours.png" alt=""><img src="static/images/qual/guard_ours.png" alt="">
+          <div class="lbl">SigLIP2</div><img src="static/images/qual/bus_siglip2.png" alt=""><img src="static/images/qual/guard_siglip2.png" alt="">
+          <div class="lbl">Qwen3-8B</div><img src="static/images/qual/bus_qwen3.png" alt=""><img src="static/images/qual/guard_qwen3.png" alt="">
+        </div>
+        <figcaption>Each row shows the top retrieved results per model for two queries. For <em>bus cut-in</em>, baselines retrieve videos containing buses but miss the cut-in motion. For <em>car collision with city guardrails</em>, baselines retrieve either collisions without guardrails or guardrails without collisions. STRIVE-D correctly identifies both the object and the event in each case.</figcaption>
+      </figure>
+    </section>
+
+    <section class="section" id="authors">
+      <h2>Authors</h2>
+      <div class="people">
+        <a class="person" href="https://gyeow.github.io/"><span class="avatar" data-initials="MY"><img src="static/authors/manyi.jpg" alt="Manyi Yao" onerror="this.remove()"></span><strong>Manyi Yao</strong><span>UC Riverside</span></a>
+        <a class="person" href="https://www.linkedin.com/in/garg-sparsh/"><span class="avatar" data-initials="SG"><img src="static/authors/sparsh.jpg" alt="Sparsh Garg" onerror="this.remove()"></span><strong>Sparsh Garg</strong><span>NEC Labs America</span></a>
+        <a class="person" href="https://www.cs.ucr.edu/~cshelton/"><span class="avatar" data-initials="CS"><img src="static/authors/christian.jpg" alt="Christian R. Shelton" onerror="this.remove()"></span><strong>Christian R. Shelton</strong><span>UC Riverside</span></a>
+        <a class="person" href="https://vcg.engr.ucr.edu/amit"><span class="avatar" data-initials="AR"><img src="static/authors/amit.jpg" alt="Amit K. Roy-Chowdhury" onerror="this.remove()"></span><strong>Amit K. Roy&#8209;Chowdhury</strong><span>UC Riverside</span></a>
+        <a class="person" href="https://abhishekaich27.github.io/"><span class="avatar" data-initials="AA"><img src="static/authors/abhishek.jpg" alt="Abhishek Aich" onerror="this.remove()"></span><strong>Abhishek Aich</strong><span>NEC Labs America</span></a>
+      </div>
+    </section>
+
+    <section class="section narrow" id="bibtex">
+      <h2>BibTeX</h2>
+      <div class="bib">
+        <button class="copy" type="button">Copy</button>
+<pre id="bib">@inproceedings{yao2026strive,
+   author = {Manyi Yao and Sparsh Garg and Christian R. Shelton and Amit Roy-Chowdhury and Abhishek Aich},
+   title = {Driving Video Retrieval for Complex Queries with Structured Grounding},
+   booktitle = {Advances in Neural Information Processing Systems},
+   booktitleabbr = {NeurIPS},
+   year = 2026,
+   volume = 39,
+   note = {to appear}
+}</pre>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <p>© 2026 <a href="https://gyeow.github.io/">Manyi Yao</a></p>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelector('.copy').addEventListener('click', e => {
+      navigator.clipboard.writeText(document.getElementById('bib').innerText);
+      e.target.textContent = 'Copied';
+      setTimeout(() => (e.target.textContent = 'Copy'), 1500);
+    });
+    document.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(x => x.classList.toggle('on', x === b));
+      document.querySelectorAll('.table-wrap').forEach(w => (w.hidden = w.dataset.ds !== b.dataset.ds));
+    }));
+    const links = [...document.querySelectorAll('.nav-links a')];
+    const io = new IntersectionObserver(entries => entries.forEach(en => {
+      if (en.isIntersecting) links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id));
+    }), { rootMargin: '-45% 0px -50% 0px' });
+    links.forEach(a => { const s = document.querySelector(a.getAttribute('href')); if (s) io.observe(s); });
+  </script>
+</body>
+</html>
